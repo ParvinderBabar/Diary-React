@@ -1,34 +1,36 @@
-"use client"
-import next from "next/";
-
+"use client";
 import React, { useState } from "react";
-export default function Month() {
-    const [month, setMonth] = useState(monthName);    
-    
-const currentDate=new Date();
-const monthNumber = currentDate.getMonth + 1;
-const monthName = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(currentDate);
 
-    console.log("Current month number:", monthNumber); 
+export default function Month() {
+    const currentDate = new Date();
+    const [month, setMonth] = useState(currentDate.getMonth() + 1);
+    const monthName = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(currentDate);
+
+    console.log("Current month number:", month);
+
     function previousMonth() {
-        // console.log(monthName);
-        // setMonth(monthName - 1);
-        console.log("show previous month name");
+        const previousMonthNumber = month - 1 < 1 ? 12 : month - 1;
+        setMonth(previousMonthNumber);
+        console.log("show previous month name:", getMonthName(previousMonthNumber));
     };
      
     function nextMonth() {
-        { monthName }
-        console.log("show next month name");
+        const nextMonthNumber = month + 1 > 12 ? 1 : month + 1;
+        setMonth(nextMonthNumber);
+        console.log("show next month name:", getMonthName(nextMonthNumber));
     };
-    
+
+    function getMonthName(monthNumber) {
+        const date = new Date();
+        date.setMonth(monthNumber - 1);
+        return new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date);
+    }
+
     return (
         <div>
-          <button id="leftClick" onClick={previousMonth}> left </button>  
-            
-      {monthName}
-            
-             <button id="rightClick" onClick={nextMonth}> right </button>
-       </div> 
-
-)
+            <button id="leftClick" onClick={previousMonth}> left </button>  
+            {monthName}
+            <button id="rightClick" onClick={nextMonth}> right </button>
+        </div> 
+    );
 }
