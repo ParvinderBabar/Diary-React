@@ -7,7 +7,7 @@ export default function Home() {
     <main className={styles.main}>
       <h1>Diary</h1>
       <div>Month
-        <Month/>{monthName}
+        <Month/>
       </div>
       
       
