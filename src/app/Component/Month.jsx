@@ -1,36 +1,49 @@
-"use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Month() {
-    const currentDate = new Date();
-    const [month, setMonth] = useState(currentDate.getMonth() + 1);
-    const monthName = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(currentDate);
+    const [currentDate, setCurrentDate] = useState(new Date());
 
-    console.log("Current month number:", month);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentDate(new Date());
+        }, 1000 * 60); // Update every minute
+
+        return () => clearInterval(interval);
+    }, []); // Empty dependency array to run effect only once
 
     function previousMonth() {
-        const previousMonthNumber = month - 1 < 1 ? 12 : month - 1;
-        setMonth(previousMonthNumber);
-        console.log("show previous month name:", getMonthName(previousMonthNumber));
-    };
-     
-    function nextMonth() {
-        const nextMonthNumber = month + 1 > 12 ? 1 : month + 1;
-        setMonth(nextMonthNumber);
-        console.log("show next month name:", getMonthName(nextMonthNumber));
+        const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+        setCurrentDate(newDate);
     };
 
-    function getMonthName(monthNumber) {
-        const date = new Date();
-        date.setMonth(monthNumber - 1);
+    function nextMonth() {
+        const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+        setCurrentDate(newDate);
+    };
+
+    function getMonthName(date) {
         return new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date);
     }
 
+    const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+    const daysArray = [];
+
+    for (let i = 1; i <= daysInMonth; i++) {
+        daysArray.push(i);
+    }
+
     return (
-        <div>
-            <button id="leftClick" onClick={previousMonth}> left </button>  
-            {monthName}
-            <button id="rightClick" onClick={nextMonth}> right </button>
-        </div> 
+        <>
+            <div>
+                <button id="leftClickMonth" onClick={previousMonth}> left </button>  
+                {getMonthName(currentDate)}
+                <button id="rightClickMonth" onClick={nextMonth}> right </button>
+            </div>
+            <div>
+                {daysArray.map(day => (
+                    <div key={day}>{day}</div>
+                ))}
+            </div>
+        </>
     );
 }
