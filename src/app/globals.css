@@ -1,30 +1,111 @@
-#leftClickMonth {
-  width: 30px;
-  height: 30px;
-  padding: 5px;
-  margin: 2px;
+#date-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+#date-container h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+  font-weight: bold;
+}
+#formContent {
+  display: flex;
+  flex-direction: column;
+}
+
+#monthAndYear,
+#displayMonth,
+#displayYear,
+#displayNotes,
+#leftClickMonth,
 #rightClickMonth {
-  width: 30px;
-  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
   padding: 5px;
-  margin: 2px;
+  margin: 5px;
 }
-#leftClickYear {
-  width: 30px;
-  height: 30px;
+#monthAndYear {
+  padding: 10px;
+  margin: 10px;
+  flex-direction: column;
+}
+
+#displayDate {
+  background-color: #add8e6;
+}
+
+#textarea {
+  width: calc(100% - 10px); /* Subtract padding and border */
+  max-width: 1000px;
+  height: 100px;
   padding: 5px;
-  margin: 2px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 5px;
+  box-sizing: border-box;
 }
-#rightClickYear {
-  width: 30px;
-  height: 30px;
+
+#parentDivDay {
+  display: flex;
+  flex-wrap: wrap; /* Allow flex items to wrap */
+  justify-content: center;
+  align-items: center;
   padding: 5px;
-  margin: 2px;
-}
-.dateCell {
-  width: 5px;
-  height: 5px;
   border: 2px solid black;
-  border-radius: 2px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.dayChildDiv {
+  display: flex;
+  flex-wrap: wrap; /* Allow flex items to wrap */
+  justify-content: center;
+
+  align-items: center;
+
+  width: calc(8vw - 4px); /* Adjust padding and border */
+  min-width: 60px; /* Adjust as needed */
+  max-width: 120px; /* Adjust as needed */
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px; /* Reduced padding for smaller screens */
+  margin: 2px;
+  box-sizing: border-box;
+}
+
+#submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
+}
+
+#submit #click {
+  width: calc(100% - 20px); /* Subtract padding */
+  max-width: 100px;
+  height: 50px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+/* Media Queries for Responsiveness */
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+  .dayChildDiv {
+    width: calc(10vw - 4px); /* Adjust width for smaller screens */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #textarea {
+    width: calc(90% - 10px); /* Subtract padding and border */
+  }
+
+  .dayChildDiv {
+    width: calc(12vw - 4px); /* Adjust width for smaller screens */
+  }
 }
